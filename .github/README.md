@@ -53,6 +53,7 @@ PORT=18080 go run ./cmd/app   # http://localhost:18080/
 | Container Verification | `container-test.yml` | PR | Buduje obraz, sprawdza `/healthz`, skanuje Trivy |
 | Workflow Verification | `workflow-test.yml` | PR, `main` | `actionlint` |
 | Scorecard Verification | `scorecard.yml` | `main`, co tydzień | OpenSSF Scorecard (repo publiczne) |
+| Dependabot Auto-Merge | `dependabot-auto-merge.yml` | PR od Dependabota | Łatki i drobne wersje scalają się same po przejściu wymaganych checków; duże wersje czekają na człowieka. Merge tokenem workflowu nie uruchamia workflowów na `main` — obraz z nową zależnością powstaje przy następnym merge'u |
 | PR Automation | `pr-automation.yml` | nowy PR | Autor, reviewer i etykiety z nazwy brancha |
 | Release Draft | `release-draft.yml` | `main` | Szkic notatek wydania |
 | Docker Image Publish | `docker-build.yml` | `main` | Obraz amd64 + arm64 w GHCR z atestacją pochodzenia i SBOM (atestacja: repo publiczne) |
