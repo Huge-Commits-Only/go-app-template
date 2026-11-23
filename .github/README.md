@@ -1,77 +1,46 @@
-<div align="center">
+<p align="center">
+  <img src="assets/banner.png" alt="go-app-template — nowy projekt Huge Commits Only" width="100%">
+</p>
 
-<img src="assets/banner.png" alt="go-app-template — nowy projekt Huge Commits Only" width="100%">
+<p align="center">
+  <a href="https://github.com/Huge-Commits-Only/go-app-template/generate"><img src="https://img.shields.io/badge/Use%20this%20template-238636?style=for-the-badge&logo=github&logoColor=white" alt="Use this template"></a>
+</p>
 
-<br>
+<p align="center">
+  <a href="https://github.com/Huge-Commits-Only/go-app-template/actions/workflows/unit-test.yml"><img src="https://img.shields.io/github/actions/workflow/status/Huge-Commits-Only/go-app-template/unit-test.yml?branch=main&style=flat-square&label=testy" alt="Testy"></a>
+  <a href="https://github.com/Huge-Commits-Only/go-app-template/actions/workflows/codeql.yml"><img src="https://img.shields.io/github/actions/workflow/status/Huge-Commits-Only/go-app-template/codeql.yml?branch=main&style=flat-square&label=CodeQL" alt="CodeQL"></a>
+  <a href="https://scorecard.dev/viewer/?uri=github.com/Huge-Commits-Only/go-app-template"><img src="https://img.shields.io/ossf-scorecard/github.com/Huge-Commits-Only/go-app-template?style=flat-square&label=OpenSSF%20Scorecard" alt="OpenSSF Scorecard"></a>
+  <img src="https://img.shields.io/badge/Go-1.27-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Go 1.27">
+</p>
 
-[![License](https://img.shields.io/github/license/Huge-Commits-Only/go-app-template?style=flat-square&color=A3BE8C)](../LICENSE)
-[![Go](https://img.shields.io/badge/Go-1.27-00ADD8?style=flat-square&logo=go&logoColor=white)](../go.mod)
-[![Docker](https://img.shields.io/badge/Docker-scratch-2496ED?style=flat-square&logo=docker&logoColor=white)](../Dockerfile)
-[![Platform](https://img.shields.io/badge/Platform-Raspberry%20Pi-c51a4a?style=flat-square&logo=raspberrypi&logoColor=white)](https://www.raspberrypi.com/)
-<br>
-[![Go Verification](https://img.shields.io/github/actions/workflow/status/Huge-Commits-Only/go-app-template/go-test.yml?branch=main&style=flat-square&label=Go%20Verification)](https://github.com/Huge-Commits-Only/go-app-template/actions/workflows/go-test.yml)
-[![CodeQL](https://img.shields.io/github/actions/workflow/status/Huge-Commits-Only/go-app-template/codeql.yml?branch=main&style=flat-square&label=CodeQL)](https://github.com/Huge-Commits-Only/go-app-template/actions/workflows/codeql.yml)
-[![OpenSSF Scorecard](https://img.shields.io/ossf-scorecard/github.com/Huge-Commits-Only/go-app-template?style=flat-square&label=OpenSSF%20Scorecard)](https://scorecard.dev/viewer/?uri=github.com/Huge-Commits-Only/go-app-template)
+<p align="center">
+  <img src="assets/demo.gif" alt="Od „Use this template” przez testy, CodeQL i skany do podpisanego obrazu" width="100%">
+</p>
 
-**[Nowy projekt](#-nowy-projekt-z-szablonu)** · **[Co jest w środku](#-co-jest-w-środku)** · **[CI/CD](#-cicd)** · **[Praca lokalna](#️-praca-lokalna)**
+Start każdego nowego projektu w **Huge Commits Only**: aplikacja w Go z testami, obraz Dockera dla Raspberry Pi i komplet CI — na zielono od pierwszego commita.
 
-</div>
+## ✨ Co dostajesz
+- **🎯 Go** — minimalny serwer HTTP z `/healthz` i testami (pokrycie powyżej 80%); `app -health` to health check kontenera.
+- **🐳 Docker** — kompilacja krzyżowa amd64 / arm64, obraz `scratch`, użytkownik bez uprawnień, obraz bazowy przypięty do skrótu.
+- **🔒 Bezpieczeństwo** — CodeQL `security-extended`, govulncheck, Trivy, OpenSSF Scorecard; akcje przypięte do SHA, minimalne uprawnienia.
+- **🔏 Podpisane obrazy** — atestacja pochodzenia (SLSA) i SBOM przy każdym merge'u.
+- **🤖 Porządek** — Dependabot co tydzień, etykiety z nazwy brancha, autor i reviewer w PR, szkic wydania.
 
-<br>
-
-Szablon każdego nowego projektu w **Huge Commits Only**. Jedno kliknięcie i masz działającą aplikację w Go z testami, obrazem Dockera dla Raspberry Pi oraz kompletem CI: testy, lint, CodeQL, skany bezpieczeństwa, OpenSSF Scorecard i podpisane obrazy. Wszystko na zielono od pierwszego commita.
-
-<table>
-<tr>
-<td width="33%" valign="top"><h3>🎯 Go</h3>Minimalny serwer HTTP z <code>/healthz</code> i testami, pokrycie powyżej 80%.</td>
-<td width="33%" valign="top"><h3>🐳 Docker</h3>Kompilacja krzyżowa amd64 / arm64, obraz <code>scratch</code>, użytkownik bez uprawnień.</td>
-<td width="33%" valign="top"><h3>🔒 Bezpieczeństwo</h3>CodeQL, govulncheck, Trivy, Scorecard, akcje i obrazy przypięte do skrótów.</td>
-</tr>
-<tr>
-<td valign="top"><h3>🔏 Podpisane obrazy</h3>Atestacja pochodzenia (SLSA) i SBOM przy każdym merge'u.</td>
-<td valign="top"><h3>🤖 Dependabot</h3>Co tydzień aktualizacje akcji, obrazu bazowego i modułów Go.</td>
-<td valign="top"><h3>🏷️ Porządek w PR</h3>Etykiety z nazwy brancha, autor i reviewer, szkic wydania.</td>
-</tr>
-</table>
-
-<br>
-
-## 🚀 Nowy projekt z szablonu
-- [ ] **Use this template → Create a new repository**, właściciel `Huge-Commits-Only`. Zacznij od repozytorium **prywatnego**; publiczne dopiero po przejrzeniu pod kątem sekretów i danych osobowych.
+## 🚀 Nowy projekt
+- [ ] **[Use this template](https://github.com/Huge-Commits-Only/go-app-template/generate)**, właściciel `Huge-Commits-Only`. Zacznij od repozytorium **prywatnego**; publiczne dopiero po przejrzeniu pod kątem sekretów i danych osobowych.
 - [ ] Zmień nazwę modułu w `go.mod` (`module app`) i katalogu `cmd/app`, a w `Dockerfile` ścieżkę `./cmd/app`.
-- [ ] Podmień ten README: opis, odznaki (nazwa repozytorium w adresach), sposób uruchomienia i baner w `.github/assets/`.
-- [ ] **Settings → Rules → Rulesets**: ochrona `main` jak w `duet` (tylko PR ze squashem, podpisane commity, bez force-pusha i usuwania, wymagane testy CI). Szablon nie przenosi ustawień repozytorium. Dla repozytoriów prywatnych wymaga planu płatnego.
-- [ ] **Settings → Social preview**: wgraj `.github/assets/social-preview.png` w wersji dla projektu.
-- [ ] Repozytorium publiczne: po pierwszej publikacji ustaw obraz w **Packages** jako publiczny (darmowe miejsce bez limitu).
+- [ ] Nadaj aplikacji **własną identyfikację**: logo, okładka w `.github/assets/`, GIF z demo i ten README.
+- [ ] **Settings → Rules → Rulesets**: ochrona `main` (tylko PR ze squashem, bez force-pusha i usuwania, wymagane testy CI). Szablon nie przenosi ustawień repozytorium; dla repo prywatnych wymaga planu płatnego.
+- [ ] **Settings → Social preview**: obrazek 1280 × 640 w stylu aplikacji.
+- [ ] Repozytorium publiczne: po pierwszej publikacji ustaw obraz w **Packages** jako publiczny.
 
-<br>
-
-## 💻 Co jest w środku
-| Element | Co robi |
-|---|---|
-| 🎯 `cmd/app` | Minimalny serwer HTTP z `/healthz` i testami; `app -health` to health check kontenera |
-| 🐳 `Dockerfile` | Kompilacja krzyżowa (amd64 / arm64), obraz `scratch`, użytkownik bez uprawnień, obraz bazowy przypięty do skrótu |
-| 🔍 `.golangci.yml` | Konfiguracja `golangci-lint` |
-| 🤖 `.github/dependabot.yml` | Co tydzień: akcje, obraz bazowy i moduły Go |
-
-<br>
-
-## 🔄 CI/CD
-
-```mermaid
-flowchart LR
-    PR["🔀 Pull request"] --> T["🧪 Testy, lint,<br/>govulncheck, Trivy"]
-    PR --> C["🔎 CodeQL"]
-    PR --> K["🐳 Obraz + /healthz"]
-    T & C & K --> M{"✅ Wszystko<br/>zielone?"}
-    M -- tak --> S["🧨 Squash na main"]
-    S --> P["📦 Obraz w GHCR<br/>z atestacją i SBOM"]
-    S --> R["📝 Szkic wydania"]
-    S --> O["🛡️ OpenSSF Scorecard"]
+```bash
+go vet ./... && go test ./...
+PORT=18080 go run ./cmd/app   # http://localhost:18080/
 ```
 
 <details>
-<summary><b>Wszystkie workflowy</b></summary>
+<summary><b>🔄 Workflowy</b></summary>
 <br>
 
 | Workflow | Plik | Kiedy | Co robi |
@@ -88,24 +57,10 @@ flowchart LR
 | Release Draft | `release-draft.yml` | `main` | Szkic notatek wydania |
 | Docker Image Publish | `docker-build.yml` | `main` | Obraz amd64 + arm64 w GHCR z atestacją pochodzenia i SBOM (atestacja: repo publiczne) |
 
-Wszystkie akcje są przypięte do pełnego SHA, a workflowy dostają tylko potrzebne uprawnienia. Sam szablon niczego nie publikuje.
-
-**Etykiety z nazwy brancha:** `feat/*` → `enhancement` · `fix/*` → `bug` · `docs/*` → `documentation` · `chore/*` → `chore` · `deps/*` → `dependencies`
+Sam szablon niczego nie publikuje. Etykiety z nazwy brancha: `feat/*` → `enhancement` · `fix/*` → `bug` · `docs/*` → `documentation` · `chore/*` → `chore` · `deps/*` → `dependencies`
 
 </details>
 
-<br>
+---
 
-## 🛠️ Praca lokalna
-```bash
-go vet ./... && go test ./...
-PORT=18080 go run ./cmd/app   # http://localhost:18080/
-```
-
-<br>
-
-<div align="center">
-<a href="https://github.com/Huge-Commits-Only"><img src="assets/logo.svg" alt="Huge Commits Only" width="56"></a>
-<br>
-<sub>Część <a href="https://github.com/Huge-Commits-Only"><b>Huge Commits Only</b></a> · licencja <a href="../LICENSE">MIT</a></sub>
-</div>
+<p align="center"><sub>Część <a href="https://github.com/Huge-Commits-Only"><b>Huge Commits Only</b></a> · licencja <a href="../LICENSE">MIT</a></sub></p>
