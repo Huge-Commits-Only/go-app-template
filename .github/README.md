@@ -32,6 +32,7 @@ Start każdego nowego projektu w **Huge Commits Only**: aplikacja w Go z testami
 - [ ] Nadaj aplikacji **własną identyfikację**: logo, okładka w `.github/assets/`, GIF z demo i ten README.
 - [ ] **Settings → Rules → Rulesets**: ochrona `main` (tylko PR ze squashem, bez force-pusha i usuwania, wymagane testy CI). Szablon nie przenosi ustawień repozytorium; dla repo prywatnych wymaga planu płatnego.
 - [ ] **Settings → Social preview**: obrazek 1280 × 640 w stylu aplikacji.
+- [ ] **Settings → General → Allow auto-merge**: włącz, żeby Dependabot sam scalał łatki po zielonym CI.
 - [ ] Repozytorium publiczne: po pierwszej publikacji ustaw obraz w **Packages** jako publiczny.
 
 ```bash
