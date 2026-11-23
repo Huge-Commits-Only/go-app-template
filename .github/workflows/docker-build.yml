@@ -1,0 +1,95 @@
+name: Docker Image Publish
+run-name: >-
+  ${{
+      github.event_name == 'push'
+      && format('Build & Push Docker Image: Merge -> {0}', github.event.head_commit.message)
+  }}
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-docker:
+    # The template itself publishes nothing; repositories created from it do.
+    if: ${{ !github.event.repository.is_template }}
+    name: Build Multi-Arch Image
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    permissions:
+      contents: read
+      packages: write
+      id-token: write # signs the provenance attestation (Sigstore)
+      attestations: write
+
+    steps:
+      - name: 📥 Git -- Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      # No QEMU: the Dockerfile cross-compiles Go for the target platform.
+      - name: 🐳 Docker -- Set up Buildx
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+
+      - name: 🏷️ Git -- Generate Version
+        id: version
+        uses: PaulHatch/semantic-version@4d6da96a9bc3116da3613309a11ff75fba58eb8d # v6.0.4
+        with:
+          tag_prefix: "v"
+          major_pattern: "(MAJOR)"
+          minor_pattern: "(MINOR)"
+          version_format: "${major}.${minor}.${increment}"
+
+      - name: 🏷️ Docker -- Set up Metadata
+        id: metadata
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
+        with:
+          images: |
+            name=ghcr.io/${{ github.repository }}
+          flavor: |
+            latest=true
+          tags: |
+            type=raw,value=${{ steps.version.outputs.version }}
+            type=sha,format=short
+
+      - name: 🔑 Docker -- Log in to GHCR
+        uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4.8.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🚀 Docker -- Build and push
+        id: build
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          provenance: mode=max
+          sbom: true
+
+      - name: 🏷️ Docker -- Image name
+        id: image
+        run: echo "name=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+
+      # Verify with: gh attestation verify oci://ghcr.io/<owner>/<repo>:latest -R <Owner>/<repo>
+      - name: 🔏 Docker -- Attest build provenance
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-name: ${{ steps.image.outputs.name }}
+          subject-digest: ${{ steps.build.outputs.digest }}
+          push-to-registry: true

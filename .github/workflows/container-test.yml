@@ -1,0 +1,70 @@
+name: Container Verification
+run-name: >-
+  ${{
+      github.event_name == 'pull_request'
+      && format('Container Verification for CI: PR #{0} -> {1}', github.event.number, github.event.pull_request.title)
+  }}
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  # A fixed lowercase name: the repository name has capitals, which image references must not
+  IMAGE: app:pr-test
+
+jobs:
+  container-ci-test:
+    name: Trivy Image Scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: 📥 Git -- Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: 🐳 Docker -- Set up
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+
+      - name: 🐳 Docker -- Build Image for Scanning
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          push: false
+          load: true
+          tags: ${{ env.IMAGE }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: 🧪 Docker -- Test Container Start
+        run: |
+          echo "⚙️ Starting the container and requesting the health check:"
+          docker run -d --name app -p 8080:8080 "$IMAGE"
+          if curl -fsS --retry 10 --retry-connrefused --retry-delay 1 -o /dev/null http://localhost:8080/healthz; then
+              echo ""
+              echo "✅ Container started and answers /healthz."
+          else
+              docker logs app
+              echo ""
+              echo "❌ Container did not start correctly. See the logs above."
+              exit 1
+          fi
+
+      - name: 🧪 Trivy -- Test Vuln, Secret, Misconfig -> Container Image
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: image
+          image-ref: ${{ env.IMAGE }}
+          ignore-unfixed: true
+          scanners: vuln,secret,misconfig
+          vuln-type: os,library
+          format: table
+          severity: CRITICAL,HIGH,MEDIUM
+          exit-code: "1"

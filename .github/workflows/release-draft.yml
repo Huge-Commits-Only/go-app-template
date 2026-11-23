@@ -1,0 +1,37 @@
+name: Release Draft
+run-name: >-
+  ${{
+    github.event_name == 'push'
+    && format('Update Release Draft: Merge -> {0}', github.event.head_commit.message)
+  }}
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release-draft:
+    # The template itself publishes nothing; repositories created from it do.
+    if: ${{ !github.event.repository.is_template }}
+    name: Update Draft
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    permissions:
+      contents: write
+      pull-requests: read
+
+    steps:
+      - name: 📝 Release -- Update Draft Notes
+        uses: release-drafter/release-drafter@d1a19e60e81a7e650d00a7de9277f87e439117ea # v7.11.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          config-name: config.release-draft.yml
