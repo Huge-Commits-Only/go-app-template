@@ -19,14 +19,14 @@
 
 Start każdego nowego projektu w **Huge Commits Only**: aplikacja w Go z testami, obraz Dockera dla Raspberry Pi i komplet CI, które przechodzi od pierwszego commita.
 
-## Co dostajesz
+## ✨ Co dostajesz
 - Go: minimalny serwer HTTP z `/healthz` i testami (pokrycie powyżej 80%); `app -health` służy jako health check kontenera.
 - Docker: kompilacja krzyżowa amd64 i arm64, obraz `scratch`, użytkownik bez uprawnień, obraz bazowy przypięty do skrótu.
 - Bezpieczeństwo: CodeQL `security-extended`, govulncheck, Trivy i OpenSSF Scorecard; akcje przypięte do SHA, minimalne uprawnienia.
 - Podpisane obrazy: atestacja pochodzenia (SLSA) i SBOM przy każdym merge'u.
 - Porządek: Dependabot co tydzień (łatki scala sam po zielonych testach), etykiety z nazwy brancha, autor i reviewer w PR, szkic wydania.
 
-## Nowy projekt
+## 🚀 Nowy projekt
 - [ ] **[Use this template](https://github.com/Huge-Commits-Only/go-app-template/generate)**, właściciel `Huge-Commits-Only`. Zacznij od repozytorium **prywatnego**; publiczne dopiero po przejrzeniu pod kątem sekretów i danych osobowych.
 - [ ] Zmień nazwę modułu w `go.mod` (`module app`) i katalogu `cmd/app`, a w `Dockerfile` ścieżkę `./cmd/app`.
 - [ ] Nadaj aplikacji **własną identyfikację**: logo, okładka w `.github/assets/`, GIF z demo i ten README.
@@ -41,7 +41,7 @@ PORT=18080 go run ./cmd/app   # http://localhost:18080/
 ```
 
 <details>
-<summary><b>Workflowy</b></summary>
+<summary><b>🔄 Workflowy</b></summary>
 <br>
 
 | Workflow | Plik | Kiedy | Co robi |
