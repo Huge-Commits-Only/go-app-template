@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.png" alt="go-app-template — nowy projekt Huge Commits Only" width="100%">
+  <img src="assets/banner.png" alt="go-app-template, nowy projekt Huge Commits Only" width="100%">
 </p>
 
 <p align="center">
@@ -17,16 +17,16 @@
   <img src="assets/demo.gif" alt="Od „Use this template” przez testy, CodeQL i skany do podpisanego obrazu" width="100%">
 </p>
 
-Start każdego nowego projektu w **Huge Commits Only**: aplikacja w Go z testami, obraz Dockera dla Raspberry Pi i komplet CI — na zielono od pierwszego commita.
+Start każdego nowego projektu w **Huge Commits Only**: aplikacja w Go z testami, obraz Dockera dla Raspberry Pi i komplet CI, które przechodzi od pierwszego commita.
 
-## ✨ Co dostajesz
-- **🎯 Go** — minimalny serwer HTTP z `/healthz` i testami (pokrycie powyżej 80%); `app -health` to health check kontenera.
-- **🐳 Docker** — kompilacja krzyżowa amd64 / arm64, obraz `scratch`, użytkownik bez uprawnień, obraz bazowy przypięty do skrótu.
-- **🔒 Bezpieczeństwo** — CodeQL `security-extended`, govulncheck, Trivy, OpenSSF Scorecard; akcje przypięte do SHA, minimalne uprawnienia.
-- **🔏 Podpisane obrazy** — atestacja pochodzenia (SLSA) i SBOM przy każdym merge'u.
-- **🤖 Porządek** — Dependabot co tydzień, etykiety z nazwy brancha, autor i reviewer w PR, szkic wydania.
+## Co dostajesz
+- Go: minimalny serwer HTTP z `/healthz` i testami (pokrycie powyżej 80%); `app -health` służy jako health check kontenera.
+- Docker: kompilacja krzyżowa amd64 i arm64, obraz `scratch`, użytkownik bez uprawnień, obraz bazowy przypięty do skrótu.
+- Bezpieczeństwo: CodeQL `security-extended`, govulncheck, Trivy i OpenSSF Scorecard; akcje przypięte do SHA, minimalne uprawnienia.
+- Podpisane obrazy: atestacja pochodzenia (SLSA) i SBOM przy każdym merge'u.
+- Porządek: Dependabot co tydzień (łatki scala sam po zielonych testach), etykiety z nazwy brancha, autor i reviewer w PR, szkic wydania.
 
-## 🚀 Nowy projekt
+## Nowy projekt
 - [ ] **[Use this template](https://github.com/Huge-Commits-Only/go-app-template/generate)**, właściciel `Huge-Commits-Only`. Zacznij od repozytorium **prywatnego**; publiczne dopiero po przejrzeniu pod kątem sekretów i danych osobowych.
 - [ ] Zmień nazwę modułu w `go.mod` (`module app`) i katalogu `cmd/app`, a w `Dockerfile` ścieżkę `./cmd/app`.
 - [ ] Nadaj aplikacji **własną identyfikację**: logo, okładka w `.github/assets/`, GIF z demo i ten README.
@@ -41,7 +41,7 @@ PORT=18080 go run ./cmd/app   # http://localhost:18080/
 ```
 
 <details>
-<summary><b>🔄 Workflowy</b></summary>
+<summary><b>Workflowy</b></summary>
 <br>
 
 | Workflow | Plik | Kiedy | Co robi |
@@ -54,7 +54,7 @@ PORT=18080 go run ./cmd/app   # http://localhost:18080/
 | Container Verification | `container-test.yml` | PR | Buduje obraz, sprawdza `/healthz`, skanuje Trivy |
 | Workflow Verification | `workflow-test.yml` | PR, `main` | `actionlint` |
 | Scorecard Verification | `scorecard.yml` | `main`, co tydzień | OpenSSF Scorecard (repo publiczne) |
-| Dependabot Auto-Merge | `dependabot-auto-merge.yml` | PR od Dependabota | Łatki i drobne wersje scalają się same po przejściu wymaganych checków; duże wersje czekają na człowieka. Merge tokenem workflowu nie uruchamia workflowów na `main` — obraz z nową zależnością powstaje przy następnym merge'u |
+| Dependabot Auto-Merge | `dependabot-auto-merge.yml` | PR od Dependabota | Łatki i drobne wersje scalają się same po przejściu wymaganych checków; duże wersje czekają na człowieka. Merge tokenem workflowu nie uruchamia workflowów na `main`, więc obraz z nową zależnością powstaje przy następnym merge'u |
 | PR Automation | `pr-automation.yml` | nowy PR | Autor, reviewer i etykiety z nazwy brancha |
 | Release Draft | `release-draft.yml` | `main` | Szkic notatek wydania |
 | Docker Image Publish | `docker-build.yml` | `main` | Obraz amd64 + arm64 w GHCR z atestacją pochodzenia i SBOM (atestacja: repo publiczne) |
