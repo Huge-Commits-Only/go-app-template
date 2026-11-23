@@ -32,6 +32,7 @@ Start każdego nowego projektu w **Huge Commits Only**: aplikacja w Go z testami
 - [ ] Nadaj aplikacji **własną identyfikację**: logo, okładka w `.github/assets/`, GIF z demo i ten README.
 - [ ] **Settings → Rules → Rulesets**: ochrona `main` (tylko PR ze squashem, bez force-pusha i usuwania, wymagane testy CI). Szablon nie przenosi ustawień repozytorium; dla repo prywatnych wymaga planu płatnego.
 - [ ] **Settings → Social preview**: obrazek 1280 × 640 w stylu aplikacji.
+- [ ] **Settings → General → Allow auto-merge**: włącz, żeby Dependabot sam scalał łatki po zielonym CI.
 - [ ] Repozytorium publiczne: po pierwszej publikacji ustaw obraz w **Packages** jako publiczny.
 
 ```bash
@@ -53,6 +54,7 @@ PORT=18080 go run ./cmd/app   # http://localhost:18080/
 | Container Verification | `container-test.yml` | PR | Buduje obraz, sprawdza `/healthz`, skanuje Trivy |
 | Workflow Verification | `workflow-test.yml` | PR, `main` | `actionlint` |
 | Scorecard Verification | `scorecard.yml` | `main`, co tydzień | OpenSSF Scorecard (repo publiczne) |
+| Dependabot Auto-Merge | `dependabot-auto-merge.yml` | PR od Dependabota | Łatki i drobne wersje scalają się same po przejściu wymaganych checków; duże wersje czekają na człowieka. Merge tokenem workflowu nie uruchamia workflowów na `main` — obraz z nową zależnością powstaje przy następnym merge'u |
 | PR Automation | `pr-automation.yml` | nowy PR | Autor, reviewer i etykiety z nazwy brancha |
 | Release Draft | `release-draft.yml` | `main` | Szkic notatek wydania |
 | Docker Image Publish | `docker-build.yml` | `main` | Obraz amd64 + arm64 w GHCR z atestacją pochodzenia i SBOM (atestacja: repo publiczne) |
